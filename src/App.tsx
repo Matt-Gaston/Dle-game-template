@@ -5,6 +5,8 @@ import InfoStatBox from "./components/InfoStatBox/InfoStatBox.tsx";
 import DescriptionBox from "./components/DescriptionBox/DescriptionBox.tsx";
 import GuessTextBox from "./components/GuessTextBox/GuessTextBox.tsx";
 import GuessAnswersDisplay from "./components/GuessAnswersDisplay/GuessAnswersDisplay.tsx";
+import GameOverDisplay from "./components/GameOverDisplay/GameOverDisplay.tsx";
+import GameSummary from "./components/GameSummary/GameSummary.tsx";
 
 import "./App.css";
 
@@ -12,7 +14,7 @@ import "./App.css";
 import { champData as rawItemData, champNames } from "./assets/champSampleData.tsx";
 
 
-// Must fill this out
+// Must fill this out for your custom data to be used
 export interface itemDataStructure{ 
     _id?: string,
     championId?: string,
@@ -29,12 +31,26 @@ export interface itemDataStructure{
 // fields that should not be displayed to user that are a part of the above interface (itemDataStructures)
 const doNotDisplayTheseLabels = ["_id", "championId"]
 
+const ANSWER_STATUS = {
+    Correct: 0,
+    Incorrect: 1,
+    PartiallyCorrect: 2
+}
+
+type AnswerStatus = typeof ANSWER_STATUS[keyof typeof ANSWER_STATUS]
+
 function App() {
     const [answer, setAnswer] = useState<string>("Garen")
     const [guessedItems, setGuessedItems] = useState<string[]>([])
     const [itemData, setItemData] = useState<itemDataStructure[]>(() => setupItemData())
     const [displayedLabels, setDisplayedLabels] = useState<(keyof itemDataStructure)[]>(() => setupDisplayedLabels())
+
+    // const guessAnswerStats = 
     
+    let bWon = false
+    if (answer === guessedItems[0]){
+        bWon = true
+    }
 
     // Custom function for setting up any data conversions, like string to Date
     function setupItemData(){
@@ -52,7 +68,7 @@ function App() {
 
     function handleGuessSubmission(guess:string){
         if (champNames.includes(guess)){
-            setGuessedItems((prevItems) => [...prevItems, guess])
+            setGuessedItems((prevItems) => [guess, ...prevItems])
         } else {
             console.log("item does not exist/not valid")
         }
@@ -65,6 +81,8 @@ function App() {
             <DescriptionBox/>
             <GuessTextBox handleGuessFunction={handleGuessSubmission}/>
             <GuessAnswersDisplay correctItem={answer} guessedItems={guessedItems} itemData={itemData} labels={displayedLabels}/>
+            <GameOverDisplay/>
+            <GameSummary/>
         </main>
 
     )

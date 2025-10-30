@@ -1,3 +1,9 @@
+.guess-section-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .field-labels-container {
 
 }
@@ -19,4 +25,32 @@
 
 .guess-item-square {
 
+}
+
+.correct-guess-square {
+    background-color: green;
+}
+
+.incorrect-guess-square {
+    background-color: red;
+}
+
+.incorrect-high-guess-square {
+    background-color: red;
+}
+
+.incorrect-low-guess-square {
+    background-color: red;
+}
+
+.correct-list-items {
+    background-color: green;
+}
+
+.partially-correct-list-items{
+    background-color: orange;
+}
+
+.incorrect-list-items {
+    background-color: red;
 }
