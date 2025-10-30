@@ -1,0 +1,22 @@
+.field-labels-container {
+
+}
+
+.field-labels {
+    margin-inline: 5px
+
+}
+
+.guess-answers-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.guess-item {
+    display: flex;
+    gap: 5px;
+}
+
+.guess-item-square {
+
+}
