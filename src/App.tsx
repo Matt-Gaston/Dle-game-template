@@ -1,7 +1,7 @@
-import { clsx } from "clsx";
-
+// React Library Imports
 import { useState } from "react";
 
+// Component Imports
 import TitleBar from "./components/TitleBar/TitleBar.tsx";
 import InfoStatBox from "./components/InfoStatBox/InfoStatBox.tsx";
 import DescriptionBox from "./components/DescriptionBox/DescriptionBox.tsx";
@@ -12,47 +12,13 @@ import GameSummary from "./components/GameSummary/GameSummary.tsx";
 
 import "./App.css";
 
-
+// Custom Data Import
 import { champData as rawItemData } from "./assets/champSampleData.tsx";
 
-// ####################################################
-// MUST FILL OUT THIS SECTION FOR YOUR DATA ----
+// Custom Type Imports
 
-
-// Must fill this out for your custom data to be used
-export interface itemDataStructure{ 
-    _id?: string,
-    championId?: string,
-    championName: string,
-    gender: string
-    positions: string[],
-    species: string[],
-    resource: string,
-    range_type: string[],
-    regions: string[],
-    release_date: number
-}
-
-// fields that should not be displayed to user that are a part of the above interface (itemDataStructures)
-const doNotDisplayTheseLabels = ["_id", "championId"]
-
-// The field that is treated as the answer/guess
-const answer_field = "championName"
-
-
-// END OF CUSTOM DATA SECTION
-// ####################################################
-
-
-export const ANSWER_STATUS = {
-    CORRECT: 0,
-    INCORRECT: 1,
-    PARTIALLYCORRECT: 2,
-    INCORRECTLOW: 3,
-    INCORRECTHIGH: 4
-} as const
-
-export type AnswerStatus = typeof ANSWER_STATUS[keyof typeof ANSWER_STATUS]
+import type { itemDataStructure, AnswerStatus } from "./customTypes.tsx";
+import { doNotDisplayTheseLabels, answer_field, ANSWER_STATUS } from "./customTypes.tsx";
 
 
 // -----------------------------------------------

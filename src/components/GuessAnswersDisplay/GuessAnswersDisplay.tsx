@@ -1,6 +1,6 @@
 import "./GuessAnswersDisplay.css";
-import type { itemDataStructure, AnswerStatus } from "../../App";
-import { ANSWER_STATUS } from "../../App";
+import type { itemDataStructure, AnswerStatus } from "../../customTypes";
+import { ANSWER_STATUS } from "../../customTypes";
 
 interface GuessAnswersDisplayProps{
     guessedItemIndexes: number[],
