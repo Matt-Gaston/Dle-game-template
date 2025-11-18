@@ -1,11 +1,8 @@
-import { clsx } from "clsx";
-
 import "./GuessAnswersDisplay.css";
 import type { itemDataStructure, AnswerStatus } from "../../App";
 import { ANSWER_STATUS } from "../../App";
 
 interface GuessAnswersDisplayProps{
-    correctItemIndex:number,
     guessedItemIndexes: number[],
     itemData: itemDataStructure[],
     labels: (keyof itemDataStructure)[],

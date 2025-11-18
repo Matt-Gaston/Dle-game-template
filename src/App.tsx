@@ -54,47 +54,48 @@ export const ANSWER_STATUS = {
 
 export type AnswerStatus = typeof ANSWER_STATUS[keyof typeof ANSWER_STATUS]
 
+
+// -----------------------------------------------
+// Functionality for setting up data
+
+
+// Custom function for setting up any data conversions, like string to Date
+function setupItemData(){
+    return rawItemData.map((item) => (
+        {
+            ...item,
+            release_date: new Date(item.release_date).getFullYear()
+        }))
+}
+
+function setupAnswerItems(){
+    return itemData.map((itemObject) => itemObject[answer_field])
+}
+
+function setupDisplayedLabels(): (keyof itemDataStructure)[] {
+    const labels = Object.keys(itemData[0]!) as (keyof itemDataStructure)[];
+    return labels.filter((l) => !doNotDisplayTheseLabels.includes(String(l)))
+}
+
+const itemData = setupItemData()
+const answerItems = setupAnswerItems()
+const displayedLabels = setupDisplayedLabels()
+const answerIndex = 38
+
+// -----------------------------------------------
+
+
+
 function App() {
-    const [itemData, setItemData] = useState<itemDataStructure[]>(() => setupItemData())
-    const [answerItems, setAnswerItems] = useState<string[]>(() => setupAnswerItems())
-    const [displayedLabels, setDisplayedLabels] = useState<(keyof itemDataStructure)[]>(() => setupDisplayedLabels())
-    const [answerIndex, setanswerIndex] = useState<number>(38)
     const [guessedItemIndexes, setguessedItemIndexes] = useState<number[]>([])
-
-
-    // -----------------------------------------------
-    // Functionality for setting up data
-
-
-    // Custom function for setting up any data conversions, like string to Date
-    function setupItemData(){
-        return rawItemData.map((item) => (
-            {
-                ...item,
-                release_date: new Date(item.release_date).getFullYear()
-            }))
-    }
-
-    function setupAnswerItems(){
-        return itemData.map((itemObject) => itemObject[answer_field])
-    }
-
-    function setupDisplayedLabels(): (keyof itemDataStructure)[] {
-        const labels = Object.keys(itemData[0]!) as (keyof itemDataStructure)[];
-        return labels.filter((l) => !doNotDisplayTheseLabels.includes(String(l)))
-    }
-
-
-    // -----------------------------------------------
-
 
     // -----------------------------------------------
     // Functionality for guess statuses and game won logic
 
     
-    let bWon = false
+    let bGameWon = false
     if (answerIndex === guessedItemIndexes[0]){
-        bWon = true
+        bGameWon = true
     }
 
     const guessStatusList: AnswerStatus[][] = guessedItemIndexes.map((guessIndex) => {
@@ -182,8 +183,8 @@ function App() {
             <TitleBar/>
             <InfoStatBox/>
             <DescriptionBox/>
-            <GuessTextBox handleGuessFunction={handleGuessSubmission}/>
-            <GuessAnswersDisplay correctItemIndex={answerIndex} guessedItemIndexes={guessedItemIndexes} itemData={itemData} labels={displayedLabels} statusList={guessStatusList} answerField={answer_field}/>
+            { bGameWon ? null : <GuessTextBox handleGuessFunction={handleGuessSubmission}/> }
+            <GuessAnswersDisplay guessedItemIndexes={guessedItemIndexes} itemData={itemData} labels={displayedLabels} statusList={guessStatusList} answerField={answer_field}/>
             <GameOverDisplay/>
             <GameSummary/>
         </main>
