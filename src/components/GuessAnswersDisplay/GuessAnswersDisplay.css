@@ -1,11 +1,13 @@
 .guess-section-container {
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
+    width: 100vw;
 }
 
 .field-labels-container {
-
+    
 }
 
 .field-labels {
@@ -43,14 +45,6 @@
     background-color: red;
 }
 
-.correct-list-items {
-    background-color: green;
-}
-
-.partially-correct-list-items{
+.partially-correct-square{
     background-color: orange;
-}
-
-.incorrect-list-items {
-    background-color: red;
 }
